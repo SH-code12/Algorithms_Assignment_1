@@ -1,48 +1,37 @@
 #include <iostream>
 using namespace std;
-
-int f[2][2] = {{1, 1}, {1, 0}};
-int M[2][2] = {{1, 1}, {1, 0}};
-
-void multiplacation (int f[2][2],int  M[2][2]){
-    int a = f[0][0]*M[0][0]+ f[0][1]*M[1][0];
-    int b= f[0][0]*M[0][1] + f[0][1]*M[1][1];
-    int c= f[1][0]*M[0][0]+ f[1][1]*M[1][0];
-    int d= f[1][0]*M[0][1]+ f[1][1]*M[1][1];
-
-    f[0][0]= a;
-    f[0][1]= b;
-    f[1][0]=c;
-    f[1][1]=d;
+int search(int sorted[], int target,int size){
+int ri= size-1;
+int le= 0;
+while(le<=ri){
+    int mid = le + (ri - le) / 2;
+    if (sorted[mid] == target) {
+        return mid;}
+    else if (sorted[mid] < target) {
+        le = mid + 1;}
+    else
+        ri= mid-1;
 }
-
-
-void power(int f[2][2], int n ){
-    if (n==0 || n==1){ return ;}
-    power(f, n/2);
-     multiplacation(f, f);
-        if (n%2!=0){
-             multiplacation( f, M);
-        }
-
-
+return -1;
 
 }
-int fibo (int n){
-    if (n==0)
-        return 0;
-    else{
-        power(f, n-1);
-        return f[0][0];
-    }
-}
-
-
 int main() {
     int n;
-    cout << "Enter the position, please  ";
-    cin >> n;
+cout<< "please enter size of the sorted list"<<endl;
+cin >>n;
+    int list[n];
+cout <<"please enter the sorted list"<< endl;
+for (int i=0; i<n;i++){
+    cin >> list[i];
+}
+    int value ;
+cout<<"please enter the target value"<<endl;
+    cin >> value;
+   int res= search(list,value,n);
+    if (res!=-1)
+        cout <<"the index of target num is "<< res<<endl;
+    else
+        cout<<"target value not found"<<endl;
 
-    cout << "fibonacci number at position " << n << " = " << fibo (n) <<endl;
     return 0;
 }
