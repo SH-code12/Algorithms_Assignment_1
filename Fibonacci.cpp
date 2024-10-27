@@ -14,24 +14,49 @@ T Fibonacci(T num){
 }
 
 // Fibonacci series using divide and conquer
-int bin_se_re( int arr[8], int target, int l, int h) {
-    if (l > h) {
-        return -1;
+int f[2][2] = {{1, 1}, {1, 0}};
+int M[2][2] = {{1, 1}, {1, 0}};
+void multiplacation (int f[2][2],int  M[2][2]){
+    int a = f[0][0]*M[0][0]+ f[0][1]*M[1][0];
+    int b= f[0][0]*M[0][1] + f[0][1]*M[1][1];
+    int c= f[1][0]*M[0][0]+ f[1][1]*M[1][0];
+    int d= f[1][0]*M[0][1]+ f[1][1]*M[1][1];
+    f[0][0]= a;
+    f[0][1]= b;
+    f[1][0]=c;
+    f[1][1]=d;
+}
+void power(int f[2][2], int n ){
+    if (n==0 || n==1){ return ;}
+    power(f, n/2);
+    multiplacation(f, f);
+    if (n%2!=0){
+        multiplacation( f, M);
     }
-    int mi = (h + l) / 2;
-    if (arr[mi] == target) {
-        return mi;
+}
+int fibo (int n){
+    if (n==0)
+        return 0;
+    else{
+        power(f, n-1);
+        return f[0][0];
     }
-    else if (arr[mi] > target) {
-        return bin_se_re(arr, target, l, mi - 1);
-    }
-    else {
-        return bin_se_re(arr, target, mi + 1, h);
-    }
-
 }
 
 // Fibonacci series using dynamic programming
+
+template <typename T>
+T fibonacciDynamic(T n) {
+    vector<T> fib(n + 1);
+    fib[0] = 0;
+    fib[1] = 1;
+
+    for (T i = 2; i <= n; i++) {
+        fib[i] = fib[i - 1] + fib[i - 2];
+    }
+
+    return fib[n];
+}
 
 void Menu(){
     cout<<"Welcome to Fibonacci Series\n"
@@ -61,7 +86,7 @@ int ChoiceFunction() {
                         case 1:
                             cout << "You are now testing Fibonacci function using recursion.\n";
                             int n;
-                            cout << "Please enter a number: ";
+                            cout << "Please enter Positive number: ";
                             cin >> n;
                             cout << "Fibonacci of number " << n << " = " << Fibonacci(n) << "\n";
                             cout<<"-------------------------------------------\n";
@@ -82,21 +107,12 @@ int ChoiceFunction() {
                     switch (choice) {
                         case 1:
                             cout << "You are now testing Fibonacci function using divide and conquer.\n";
-                            cout <<"please enter sorted array of 8 elements"<< endl;
-                            for (int i=0; i<8;i++){
-                                cin >> arr[i];
-                            }
-                            int target;
-                            cout <<"please enter the target value"<< endl;
-                            cin >> target;
+                            int n;
+                            cout << "Please enter Positive number: ";
+                            cin >> n;
+                            cout << "Fibonacci of number " << n << " = " << fibo(n) << "\n";
+                            cout<<"-------------------------------------------\n";
 
-                            res = bin_se_re(arr, target, 0, 7);
-
-                            if (res != -1) {
-                                cout << "Target found at index: " << res << endl;
-                            } else {
-                                cout << "Target not found" << endl;
-                            }
                             break;
                         case 2:
                             break;
@@ -113,7 +129,12 @@ int ChoiceFunction() {
                     cin >> choice;
                     switch (choice) {
                         case 1:
-                            cout << "Not added yet, See You Later ^_^\n";
+                            cout << "You are now testing Fibonacci function using dynamic programming.\n";
+                            int n;
+                            cout << "Please enter Positive number: ";
+                            cin >> n;
+                            cout << "Fibonacci of number " << n << " = " << fibonacciDynamic(n) << "\n";
+                            cout<<"-------------------------------------------\n";
                             break;
                         case 2:
                             break;

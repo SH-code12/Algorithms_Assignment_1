@@ -4,8 +4,8 @@ using namespace std;
 #include <vector>
 
 template <typename T>
-T fibonacci(T n) {
-    std::vector<T> fib(n + 1);  
+T fibonacciDynamic(T n) {
+    vector<T> fib(n + 1);
     fib[0] = 0;
     fib[1] = 1;
 

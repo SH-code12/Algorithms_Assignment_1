@@ -4,4 +4,4 @@ project(Assignment_1)
 set(CMAKE_CXX_STANDARD 14)
 
 add_executable(Assignment_1
-        Fibonacci.cpp Heap.cpp main.cpp)
+        Fibonacci.cpp Heap.cpp main.cpp HeapPair.cpp fibonacciDynamic.cpp search.cpp)
