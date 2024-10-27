@@ -4,7 +4,7 @@
 #include <bits/stdc++.h>
 
 using namespace std;
-
+// Fibonacci series using recursion
 template<typename T>
 T Fibonacci(T num){
     if (num== 0 || num == 1){
@@ -12,6 +12,26 @@ T Fibonacci(T num){
     }
     return Fibonacci(num-1) + Fibonacci(num-2);
 }
+
+// Fibonacci series using divide and conquer
+int bin_se_re( int arr[8], int target, int l, int h) {
+    if (l > h) {
+        return -1;
+    }
+    int mi = (h + l) / 2;
+    if (arr[mi] == target) {
+        return mi;
+    }
+    else if (arr[mi] > target) {
+        return bin_se_re(arr, target, l, mi - 1);
+    }
+    else {
+        return bin_se_re(arr, target, mi + 1, h);
+    }
+
+}
+
+// Fibonacci series using dynamic programming
 
 void Menu(){
     cout<<"Welcome to Fibonacci Series\n"
@@ -23,6 +43,9 @@ void Menu(){
 
 int ChoiceFunction() {
     bool status = true;
+    // used in testing Fibonacci series using divide and conquer
+    int arr [8];
+    int res;
     while (status) {
         int choice;
         Menu();
@@ -58,7 +81,22 @@ int ChoiceFunction() {
                     cin >> choice;
                     switch (choice) {
                         case 1:
-                            cout << "Not added yet, See You Later ^_^\n";
+                            cout << "You are now testing Fibonacci function using divide and conquer.\n";
+                            cout <<"please enter sorted array of 8 elements"<< endl;
+                            for (int i=0; i<8;i++){
+                                cin >> arr[i];
+                            }
+                            int target;
+                            cout <<"please enter the target value"<< endl;
+                            cin >> target;
+
+                            res = bin_se_re(arr, target, 0, 7);
+
+                            if (res != -1) {
+                                cout << "Target found at index: " << res << endl;
+                            } else {
+                                cout << "Target not found" << endl;
+                            }
                             break;
                         case 2:
                             break;
